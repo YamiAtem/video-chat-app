@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "ejs": "^3.1.7",
+    "express": "^4.17.3",
+    "peer": "^0.6.1",
+    "socket.io": "^4.4.1",
+    "uuid": "^8.3.2"
+  },
+  "name": "video-chat-app",
+  "version": "1.0.0",
+  "description": "Video Chat App",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "PyDev19",
+  "license": "ISC"
+}
