@@ -69,6 +69,40 @@ $(function () {
             $("chat_message").val("");
         }
     });
+    $("#mute_button").click(function () {
+        const enabled = my_stream.getAudioTrack()[0].enabled
+
+        if (enabled) {
+            my_stream.getAudioTrack()[0].enabled = false
+
+            html = `<i class="fas fa-microphone-slash"></i>`
+            $("#mute_button").toggleClass("background_red")
+            $("#mute_button").html = html
+        } else {
+            my_stream.getAudioTrack()[0].enabled = true
+
+            html = `<i class="fas fa-microphone"></i>`
+            $("#mute_button").toggleClass("background_red")
+            $("#mute_button").html = html
+        }
+    });
+    $("#stop_video").click(function () {
+        const enabled = my_stream.getVideoTrack()[0].enabled
+
+        if (enabled) {
+            my_stream.getVideoTrack()[0].enabled = false
+
+            html = `<i class="fas fa-video-camera-slash"></i>`
+            $("#mute_button").toggleClass("background_red")
+            $("#mute_button").html = html
+        } else {
+            my_stream.getVideoTrack()[0].enabled = true
+
+            html = `<i class="fas fa-video-camera"></i>`
+            $("#mute_button").toggleClass("background_red")
+            $("#mute_button").html = html
+        }
+    });
 });
 
 peer.on("open", (id) => {

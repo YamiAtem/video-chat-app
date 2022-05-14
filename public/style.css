@@ -68,6 +68,10 @@
   font-size: 1.5rem;
 }
 
+.backgroud_red {
+  background-color: red;
+}
+
 .message > span {
   background-color: #eeeeee;
   margin: 1rem 0;
