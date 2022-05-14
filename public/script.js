@@ -2,7 +2,7 @@ const socket = io("/");
 var peer = new Peer(undefined, {
     path: "/peerjs",
     host: "/",
-    port: "443" 
+    port: "443"
 });
 
 const user = prompt("Enter your name");
@@ -16,14 +16,34 @@ navigator.mediaDevices.getUserMedia({
 }).then((stream) => {
     my_stream = stream
     addVideoStream(my_video, stream)
+
+    socket.on("user-connected", (userId) => {
+        connectToNewUser(userId, stream)
+    });
+
+    peer.on("call", (call) => {
+        call.answer(stream);
+        const video = document.createElement("video");
+        call.on("stream", (userVideoStream) => {
+            addVideoStream(video, userVideoStream);
+        });
+    });
 })
 
 function addVideoStream(video, stream) {
-    video.srcObject =  stream
+    video.srcObject = stream
     video.addEventListener("loadedmetadata", () => {
         video.play()
         $("#video_grid").append(video)
     })
+}
+
+function connectToNewUser(userId, stream) {
+    const call = peer.call(userId, stream);
+    const video = document.createElement("video");
+    call.on("stream", (userVideoStream) => {
+        addVideoStream(video, userVideoStream);
+    });
 }
 
 $(function () {
@@ -58,7 +78,7 @@ peer.on("open", (id) => {
 socket.on("create_message", (message, username) => {
     $(".messages").append(`
         <div class="message">
-            <b><i class="far fa-user-circle"></i><span>${username === user ? me : username }</span></b>
+            <b><i class="far fa-user-circle"></i><span>${username === user ? me : username}</span></b>
             <span>${message}</span>
         </div>
     `);
